@@ -73,11 +73,9 @@ function trimAlignValue(val, props) {
 }
 
 function alignValue(val, props) {
-    const step = (typeof props.step === 'function') ?
-        props.step(val) :
-        props.step;
+    const step = typeof props.step === 'function' ? props.step(val) : props.step;
 
-    const valModStep = (val - props.min) % props.step;
+    const valModStep = (val - props.min) % step;
     let alignedValue = val - valModStep;
 
     if (Math.abs(valModStep) * 2 >= step) {
@@ -119,10 +117,7 @@ class ReactSlider extends React.Component {
          * Must be greater than zero.
          * `max - min` should be evenly divisible by the step value.
          */
-        step: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.func
-        ]),
+        step: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 
         /**
          * The result of the function is the value to be added or subtracted
